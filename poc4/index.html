@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Single HTML Page</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<!-- First Column with new product form -->
+			<div class="col-md-4">
+				<div class="container mt-3">
+					<form>
+						<div class="form-group">
+							<label for="productName">Product Name:</label>
+							<input type="text" id="productName" class="form-control" placeholder="Enter product name"
+								required />
+						</div>
+
+						<div class="form-group">
+							<label for="productType">Product Type:</label>
+							<input type="text" id="productType" class="form-control" placeholder="Enter product type"
+								required />
+						</div>
+
+						<div class="form-group">
+							<label for="productCount">Product Count:</label>
+							<input type="number" id="productCount" class="form-control"
+								placeholder="Enter product count" required />
+						</div>
+
+						<button type="submit" class="btn btn-primary" id="addProductBtn">
+							Add Product
+						</button>
+					</form>
+				</div>
+			</div>
+
+			<div class="col-md-4" id="productList">
+
+			</div>
+
+			<!-- Second Column with products list -->
+			<div class="col-md-4">
+				<div class="row">
+					<div class="col-12" id="productDetail">
+						<div class="container mt-3">
+							<div class="card">
+								<div class="card-body">
+									<h5 class="card-title">Product Details</h5>
+									<p class="card-text">
+										<strong>Name:</strong> <span id="productDetailName"></span>
+									</p>
+									<p class="card-text">
+										<strong>Type:</strong> <span id="productDetailType"></span>
+									</p>
+									<p class="card-text">
+										<strong>Count:</strong> <span id="productDetailCount"></span>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<div class="container mt-3">
+							<div class="card">
+								<div class="card-body">
+									<h5 class="card-title">Latest Product Information</h5>
+									<p class="card-text">
+										<strong>Latest Product Name:</strong>
+										<span id="latestProductName"></span>
+									</p>
+									<p class="card-text">
+										<strong>Total Number of Products:</strong>
+										<span id="totalProducts"></span>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		var products = [
+			{ name: "Product 1", type: "Type A", count: 10 },
+			{ name: "Product 2", type: "Type B", count: 5 },
+			{ name: "Product 3", type: "Type C", count: 8 },
+		];
+
+
+		document
+			.getElementById("addProductBtn")
+			.addEventListener("click", (event) => {
+				event.preventDefault()
+				const productName = document.getElementById("productName").value;
+				const productType = document.getElementById("productType").value;
+				const productCount =
+					document.getElementById("productCount").value;
+
+				// Validate input values
+				if (productName && productType && productCount) {
+					// Create a new product object
+					const newProduct = {
+						name: productName,
+						type: productType,
+						count: parseInt(productCount, 10),
+					};
+
+					handleNewProduct(newProduct)
+				} else {
+					alert("Please fill in all fields.");
+				}
+			});
+
+
+		const refreshTable = () => {
+			const tableBody = document.querySelector(".table tbody");
+			tableBody.innerHTML = products
+				.map(
+					(product, index) => `
+				<tr class="product-row" data-index="${index}">
+				<td>${product.name}</td>
+				<td>${product.type}</td>
+				<td>${product.count}</td>
+				</tr>
+			`
+				)
+				.join("");
+
+			// Attach click event listeners to each row
+			const productRows = document.querySelectorAll(".product-row");
+			productRows.forEach((row, index) => {
+				row.addEventListener("click", () => {
+					// Get the clicked product data
+					const clickedProduct = products[index];
+
+					updateProductDetail(clickedProduct)
+				});
+			});
+		};
+
+		const updateProductDetail = (data) => {
+			document.getElementById("productDetailName").innerText = data.name;
+			document.getElementById("productDetailType").innerText = data.type;
+			document.getElementById("productDetailCount").innerText = data.count;
+		}
+
+		const updateLatestProductInfo = (data) => {
+			document.getElementById("latestProductName").innerText = data.name;
+			document.getElementById("totalProducts").innerText = data.total;
+		};
+
+		document.getElementById('productList').innerHTML = `
+			<div class="container mt-3">
+				<table class="table">
+				<thead>
+					<tr>
+					<th scope="col">Product Name</th>
+					<th scope="col">Product Type</th>
+					<th scope="col">Product Count</th>
+					</tr>
+				</thead>
+				<tbody>
+					${this.products
+				.map(
+					(product, index) => `
+					<tr class="product-row" data-index="${index}">
+						<td>${product.name}</td>
+						<td>${product.type}</td>
+						<td>${product.count}</td>
+					</tr>
+					`
+				)
+				.join("")}
+				</tbody>
+				</table>
+			</div>
+    	`
+		// Attach click event listeners to each row
+		const productRows = document.querySelectorAll(".product-row");
+		productRows.forEach((row, index) => {
+			row.addEventListener("click", () => {
+				console.log("hre")
+				// Get the clicked product data
+				const clickedProduct = this.products[index];
+
+				updateProductDetail(clickedProduct)
+			});
+		});
+
+		const handleNewProduct = (newProduct) => {
+			// Add the new product to the products array
+			this.products.push(newProduct);
+			var data = { name: newProduct.name, total: this.products.length }
+			updateLatestProductInfo(data)
+
+			refreshTable();
+		};
+
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>IFrame Product List</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+	<script defer src="../shared/components/productList.js"></script>
+</head>
+
+<body>
+
+	<script>
+
+		var products = [
+			{ name: "Product 1", type: "Type A", count: 10 },
+			{ name: "Product 2", type: "Type B", count: 5 },
+			{ name: "Product 3", type: "Type C", count: 8 },
+		];
+
+
+		const refreshTable = () => {
+			const tableBody = document.querySelector('.table tbody');
+			tableBody.innerHTML = products.map((product, index) => `
+				<tr class="product-row" data-index="${index}">
+				<td>${product.name}</td>
+				<td>${product.type}</td>
+				<td>${product.count}</td>
+				</tr>
+			`).join("");
+
+			// Attach click event listeners to each row
+			const productRows = document.querySelectorAll(".product-row");
+			productRows.forEach((row, index) => {
+				row.addEventListener("click", () => {
+					// Get the clicked product data
+					const clickedProduct = products[index];
+
+					// Trigger postMessage with the clicked product data
+					window.parent.postMessage(
+						{ type: "productClicked", data: clickedProduct },
+						"*"
+					);
+				});
+			});
+		}
+
+		document.write(`
+			<div class="container mt-3">
+				<table class="table">
+				<thead>
+					<tr>
+					<th scope="col">Product Name</th>
+					<th scope="col">Product Type</th>
+					<th scope="col">Product Count</th>
+					</tr>
+				</thead>
+				<tbody>
+					${this.products.map((product, index) => `
+					<tr class="product-row" data-index="${index}">
+						<td>${product.name}</td>
+						<td>${product.type}</td>
+						<td>${product.count}</td>
+					</tr>
+					`).join("")}
+				</tbody>
+				</table>
+			</div>
+    	`);
+		// Attach click event listeners to each row
+		const productRows = document.querySelectorAll(".product-row");
+		productRows.forEach((row, index) => {
+			row.addEventListener("click", () => {
+				// Get the clicked product data
+				const clickedProduct = this.products[index];
+
+				// Trigger postMessage with the clicked product data
+				window.parent.postMessage(
+					{ type: "productClicked", data: clickedProduct },
+					"*"
+				);
+			});
+		});
+
+		var handleNewProduct = (newProduct) => {
+			// Add the new product to the products array
+			this.products.push(newProduct);
+			window.parent.postMessage(
+				{
+					type: "productLatest",
+					data: { name: newProduct.name, total: this.products.length },
+				},
+				"*"
+			);
+			// Render the updated product table
+
+			refreshTable();
+		}
+
+		this.handleNewProduct = this.handleNewProduct.bind(this);
+
+		window.addEventListener("message", (event) => {
+			if (event.data.type === "newProduct") {
+				console.log("inside message");
+				// Handle the new product message
+				this.handleNewProduct(event.data.data);
+			}
+		});
+
+
+
+
+
+	</script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>

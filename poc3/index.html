@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Web Components Only</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+	<script defer src="./components/productNew.js"></script>
+	<script defer src="./components/productList.js"></script>
+	<script defer src="./components/productDetail.js"></script>
+	<script defer src="./components/productLatest.js"></script>
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<!-- First Column with two iframes -->
+			<div class="col-md-4">
+				<product-new></product-new>
+			</div>
+
+			<div class="col-md-4">
+				<product-list></product-list>
+			</div>
+
+			<!-- Second Column with two iframes -->
+			<div class="col-md-4">
+				<div class="row">
+					<div class="col-12">
+						<product-detail id="productDetail" name="Product 1" type="Type A" count="10"></product-detail>
+
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<latest-product-info latest-product="Product XYZ" total-products="25"></latest-product-info>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		window.addEventListener("click-product", (event) => {
+			console.log("here")
+			updateProduct(event.detail);
+		});
+
+		window.addEventListener("latest-product", (event) => {
+			console.log(" in here")
+			updateProductLatest(event.detail);
+		});
+
+		const updateProduct = (data) => {
+			const productDetail = document.getElementById("productDetail");
+
+			// Set attributes to change the content dynamically
+			productDetail.setAttribute("name", data.name);
+			productDetail.setAttribute("type", data.type);
+			productDetail.setAttribute("count", data.count);
+		};
+
+		const updateProductLatest = (data) => {
+			const latestProductInfo = document.querySelector('latest-product-info');
+
+			// Set attributes to change the content dynamically
+			latestProductInfo.setAttribute('latest-product', data.name);
+			latestProductInfo.setAttribute('total-products', data.total);
+		};
+	</script>
+</body>
+
+</html>
