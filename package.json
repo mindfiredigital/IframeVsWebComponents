@@ -1,0 +1,28 @@
+{
+  "name": "iframevswebcomponents",
+  "version": "1.0.0",
+  "description": "The project aims to deliver a comprehensive performance comparison guide for developers contemplating the use of IFrames or Web Components in their web applications. The findings will be documented, highlighting strengths and weaknesses of each approach in different scenarios.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mindfiredigital/IframeVsWebComponents.git"
+  },
+  "author": "Soumyadeep Mondal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mindfiredigital/IframeVsWebComponents/issues"
+  },
+  "homepage": "https://github.com/mindfiredigital/IframeVsWebComponents#readme",
+  "devDependencies": {
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "prettier": "3.1.0"
+  }
+}
