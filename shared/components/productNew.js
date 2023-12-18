@@ -16,6 +16,11 @@ class ProductNew extends HTMLElement {
       }
     </style>
     <div class="container mt-3">
+      <img
+        src="../images/obi-pixel8propix-xA1l7OCKL4Q-unsplash.jpg"
+        class="img-fluid"
+        alt="High Quality Image"
+      />
       <form>
         <div class="form-group">
           <label for="productName">Product Name:</label>
@@ -57,7 +62,7 @@ class ProductNew extends HTMLElement {
           // Post a message to notify other components about the new product
           window.parent.postMessage(
             { type: "newProduct", data: newProduct },
-            "*"
+            "*",
           );
           console.log("after new Product");
         } else {
