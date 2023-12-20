@@ -17,7 +17,7 @@ class ProductNew extends HTMLElement {
     </style>
     <div class="container mt-3">
       <img
-        src="../images/obi-pixel8propix-xA1l7OCKL4Q-unsplash.jpg"
+        src="../img/obi-pixel8propix-xA1l7OCKL4Q-unsplash.jpg"
         class="img-fluid"
         alt="High Quality Image"
       />
