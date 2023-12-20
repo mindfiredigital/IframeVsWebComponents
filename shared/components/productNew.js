@@ -4,6 +4,7 @@ class ProductNew extends HTMLElement {
 
     // Create a shadow DOM
     this.attachShadow({ mode: "open" });
+    const imagePath = "../img/obi-pixel8propix-xA1l7OCKL4Q-unsplash.jpg";
 
     // Your component's HTML content
     this.shadowRoot.innerHTML = `
@@ -17,7 +18,7 @@ class ProductNew extends HTMLElement {
     </style>
     <div class="container mt-3">
       <img
-        src="../images/obi-pixel8propix-xA1l7OCKL4Q-unsplash.jpg"
+        src="${imagePath}"
         class="img-fluid"
         alt="High Quality Image"
       />
