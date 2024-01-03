@@ -1,8 +1,11 @@
 const { lighthouse, prepareAudit } = require("@cypress-audit/lighthouse");
+
+const dotenv = require("dotenv");
+dotenv.config();
 // const { pa11y } = require("@cypress-audit/pa11y");
 module.exports = {
   e2e: {
-    baseUrl: "https://mindfiredigital.github.io/IframeVsWebComponents/dist", // this is your app
+    baseUrl: process.env.CYPRESS_BASE_URL, // this is your app
     setupNodeEvents(on, config) {
       on("before:browser:launch", (browser = {}, launchOptions) => {
         prepareAudit(launchOptions);

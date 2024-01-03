@@ -39,21 +39,43 @@ Instructions on how to get started with your project, including installation, pr
 
 ### Installation
 
-Provide detailed installation steps using code blocks to show commands or configuration files.
+#### Project setup
+
+```
+npm install
+```
+
+#### Setup .env file
+
+```
+create a .env file in the same path of env.example and put the same parameters with the appropriate values.
+```
+
+#### Compiles and minifies for production
+
+```
+npm run build
+```
 
 ## Usage
 
-Explain how to use your project, provide examples, and showcase specific use cases.
+We are comparing performance between iframe and webcomponents. Here is the data we have collected:
+
+| Type                       | Load Time (in ms) |
+| -------------------------- | ----------------- |
+| Iframe with Web Components | 0.79              |
+| Iframe with HTML           | 0.70              |
+| Only Web Components        | 0.50              |
+| Single HTML                | 0.80              |
 
 ## Contributing
 
-Guidelines for contributing to the project. Provide information on how users can contribute, submit issues, or make pull requests.
-Add link to CONTRIBUTING.md file.
+See [here](CONTRIBUTING.md) for how to contribute to this project.
 
 ## License
 
-This project is licensed under the MIT license - see LICENSE.md for details.
+This project is under the MIT license. See the [LICENSE](LICENSE.md) file for details.
 
 ## Acknowledgments
 
-Give credit to any resources or individuals whose work or support has been instrumental to your project.
+Lakin Mahapatra, thanks for leading this project and sharing useful paths and resources.
